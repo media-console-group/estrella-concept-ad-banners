@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="UTF-8">
+<meta name="ad.size" content="width=300,height=600">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=300,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Estrella Immunopharma, Inc. — Investor Relations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&amp;family=Montserrat:wght@400..700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!--
+  Estrella Immunopharma, Inc. — IR display banner, 300x600 — Concept D: Corporate site / brand-native.
+  Promotes: https://gracinting.github.io/estrellaimmunopharma-ir-concept/
+  Styled from the company's own CORPORATE website (https://www.estrellabio.com/), not the IR
+  landing page that Concepts A-C are built from: its white header + logo
+  lockup, heading/body fonts, palette, accent underline bars, button style
+  and footer strip. "Homepage in miniature": each slide is one module of the
+  corporate homepage, alternating photo and light grounds. This build uses:
+    1 hero -> 2 technology split -> 3 stats block -> 4 overlay band.
+  Module classes (m-hero / m-stats / m-split / m-band) and the shared parts
+  (d-stat, d-list, d-arrows) live in style.css; every colour is a :root token
+  filled from brand.json "corp". Re-module a slide if the site has no such
+  module. Photos are the site's own photography, cropped into assets/;
+  assets/logo.png is the site's own logo file (white wordmark, cyan star). Every claim comes from the
+  project fact sheet (.tmp/facts.md).
+-->
+
+<div id="banner" aria-label="Estrella Immunopharma, Inc. investor relations advertisement">
+
+  <div id="slides">
+
+    <!-- Slide 1 — Overview -->
+    <section class="slide m-hero" data-index="0">
+      <!-- Module: corporate homepage hero (the full-bleed night-sky and mountain photo, a centred Syne title and a
+           teal button on estrellabio.com), set as the template's photo + 40% shade + gradient text panel.
+           Facts: facts.md matrix slide 1: [10-K Item 1] EB103 / STARLIGHT-1 / NCI 80,350; [Oct 15 release] five sites listed active. -->
+      <img class="d-photo" src="assets/slide-1.jpg" alt="Milky Way over snow-covered mountains at night">
+      <div class="hero-panel">
+        <h2>A clinical-stage T-cell therapy company</h2>
+        <p class="hero-desc">Estrella is developing <span class="nw">EB103</span>, a <span class="nw">CD19-directed</span> ARTEMIS T-cell therapy, in <span class="nw">STARLIGHT-1</span>, a Phase I/II trial in relapsed or refractory B-cell non-Hodgkin lymphoma. <span class="nw">EB103</span> is investigational and not FDA-approved.</p>
+        <div class="d-stats">
+          <div class="d-stat">
+            <p class="d-value">80,350</p>
+            <p class="d-label">Est. U.S. NHL cases, 2025 (NCI)</p>
+          </div>
+          <div class="d-stat">
+            <p class="d-value">5</p>
+            <p class="d-label">Sites the company lists as active, Oct&nbsp;15</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 2 — Platform -->
+    <section class="slide m-split" data-index="1">
+      <!-- Module: corporate Technology page "Our Solution" split (.module.row-default.content-bg-white):
+           the page's own T-cell render over a white card, black heading, teal sub-bullets.
+           Facts: matrix slide 2: [10-K Item 1] AbTCR + CD3 + separate co-stimulatory molecule; "the company says"
+           lower cytokine release (preclinical comparisons); licensed from parent Eureka. -->
+      <figure class="split-fig">
+        <img class="split-photo" src="assets/slide-2.jpg" alt="Rendering of a T cell with a textured surface">
+        <figcaption>Illustration</figcaption>
+      </figure>
+      <div class="split-card">
+        <h2>Two Receptors, One T&nbsp;Cell</h2>
+        <ul class="d-list">
+          <li>The company says its AbTCR binds CD19 and signals through the T cell&rsquo;s own CD3.</li>
+          <li>A separate co-stimulatory molecule adds a second signal.</li>
+          <li>Platform licensed from parent Eureka Therapeutics.</li>
+        </ul>
+        <hr class="d-rule">
+        <ul class="d-list">
+          <li>The company says, in comparisons with market-standard CAR-T constructs:
+            <ul class="d-arrows">
+              <li>Significantly lower release of inflammatory cytokines such as IL-6</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Slide 3 — Trial record -->
+    <section class="slide m-stats" data-index="2">
+      <!-- Module: corporate "The Estrella Approach" stats block (a large teal figure over copy on white, the 53% / 1 / 2 sections).
+           Facts: matrix slide 3: [10-K Item 1] nine Phase I patients (3 at 2.5M, 6 at 5M cells/kg); 5 of 5 evaluable at the higher dose
+           CR at Month 1; sixth patient Grade 5 sepsis Day 18 judged unrelated, not evaluable; [10-Q Note 1] eleven dosed by Jun 30. -->
+      <div class="stats-head">
+        <h2><span class="nw">STARLIGHT-1</span>:<br>Phase&nbsp;I Results So&nbsp;Far</h2>
+        <p>Open-label Phase I/II of <span class="nw">EB103</span> in relapsed or refractory B-cell non-Hodgkin lymphoma. Company-reported, small, and not predictive of later results.</p>
+      </div>
+      <div class="d-stats">
+        <div class="d-stat">
+          <p class="d-value">9</p>
+          <p class="d-label">Phase I patients: 3 at 2.5M and 6 at 5M T cells/kg</p>
+        </div>
+        <div class="d-stat">
+          <p class="d-value">5 <span class="d-vs">of</span> 5</p>
+          <p class="d-label">Evaluable at the higher dose had a complete response at Month&nbsp;1. A sixth patient there died of sepsis (investigator: unrelated) and was not evaluable.</p>
+        </div>
+        <div class="d-stat">
+          <p class="d-value">11</p>
+          <p class="d-label">Patients dosed by Jun&nbsp;30, 2026: 9 in Phase I, 2 in Phase II (10-Q)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4 — Funding and risk -->
+    <section class="slide m-band" data-index="3">
+      <!-- Module: corporate About / Careers overlay band (.module.row-default.background.overlay.dark):
+           the site's own DNA-and-network photo under a navy to teal overlay, centred white title and copy.
+           Facts: matrix slide 4: [10-Q Jun 30, 2026, unaudited] cash $146,670; total liabilities (all current) $9,256,014,
+           $8,304,999 accrued to related parties, mostly Eureka; going-concern doubt; two open Nasdaq notices [8-K Aug 21, Sep 8]. -->
+      <img class="d-photo" src="assets/slide-4.jpg" alt="Strand of DNA drawn in cyan particles over a network of lines">
+      <div class="band-content">
+        <h2>Going-Concern Doubt, in the Company&rsquo;s Filings</h2>
+        <p class="band-desc">No revenue. The 10-Q states substantial doubt about the company&rsquo;s ability to continue as a going concern; more funding is needed.</p>
+        <div class="d-stats">
+          <div class="d-stat">
+            <p class="d-value">$0.15M</p>
+            <p class="d-label">Cash, Jun&nbsp;30, 2026 (unaudited)</p>
+          </div>
+          <div class="d-stat">
+            <p class="d-value">$9.3M</p>
+            <p class="d-label">Liabilities, $8.3M accrued to related parties</p>
+          </div>
+          <div class="d-stat">
+            <p class="d-value">2</p>
+            <p class="d-label">Open Nasdaq listing notices</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Persistent chrome — the corporate site's header, never rotates -->
+  <header id="top-bar" class="reveal" data-delay="0">
+    <img id="logo" src="assets/logo.png" alt="Estrella Immunopharma, Inc." width="69" height="32">
+    <span id="ticker">NASDAQ:&nbsp;ESLA</span>
+  </header>
+
+  <!-- Slider controls: round navy buttons, like the homepage slider's pause control -->
+  <button type="button" class="nav-arrow" id="arrow-prev" aria-label="Previous slide">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 6 8l4 5" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button type="button" class="nav-arrow" id="arrow-next" aria-label="Next slide">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l4 5-4 5" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <div id="bottom-fixed" class="reveal" data-delay="4">
+    <div id="dots" role="tablist" aria-label="Slide selector">
+      <button class="dot active" data-index="0" aria-label="Slide 1: Overview"></button>
+      <button class="dot" data-index="1" aria-label="Slide 2: Platform"></button>
+      <button class="dot" data-index="2" aria-label="Slide 3: Trial record"></button>
+      <button class="dot" data-index="3" aria-label="Slide 4: Funding and risk"></button>
+    </div>
+
+    <!-- The corporate site's .btn: radius/gradient border from brand.json corp, arrow after the label -->
+    <a href="#" id="cta">
+      <span>Investors</span>
+      <svg id="cta-arrow" viewBox="0 0 24 25" aria-hidden="true"><path d="M12 4.18066L10.585 5.59566L16.17 11.1807H4V13.1807H16.17L10.585 18.7657L12 20.1807L20 12.1807L12 4.18066Z"/></svg>
+    </a>
+
+    <!-- The corporate site's footer strip, carrying the required forward-looking-statements line -->
+    <p id="fls"><span>EB103 is investigational, not FDA-approved. No revenue. The company’s filings state substantial doubt about its ability to continue as a going concern; it needs more funding, and new equity would dilute holders. Two Nasdaq listing notices are open. Parent Eureka controls (~58.7%). Forward-looking: trial results and timing, approval, financing, listing. Phase I data are company-reported, small, open-label. Figures: Jun 30, 2026, unaudited.</span></p>
+  </div>
+
+  <!-- Standard HTML5-ad click-tag plumbing -->
+  <div id="click-tag-wrapper"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

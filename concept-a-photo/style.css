@@ -1,0 +1,328 @@
+/* ── Brand tokens — the ONLY place colors are defined. Set --dark,
+   --navy, --accent and --gold from the company's real site; the rest
+   derive from them (color-mix: Chrome 111+ / Safari 16.2+). ── */
+:root {
+  --dark:      #000c1a;
+  --dark-2:    color-mix(in srgb, var(--dark) 70%, black);
+  --navy:      #00182b;
+  --accent:    #41e0f3;
+  --accent-d:  color-mix(in srgb, var(--accent) 82%, black);
+  --accent-lt: color-mix(in srgb, var(--accent) 62%, white);
+  --gold:      #76e4f3;
+  --gold-d:    color-mix(in srgb, var(--gold) 85%, black);
+  --white:     #ffffff;
+  --cta-ink:   var(--navy);  /* the IR page's own button: navy text on the bright cyan fill */
+  /* The IR page's faces: Syne for display, Montserrat for body and every figure (Syne's numerals are old-style, so a zero reads as a lowercase o), DM Mono for eyebrows. */
+  --font-head: 'Syne', 'Montserrat', system-ui, sans-serif;
+  --font:      'Montserrat', system-ui, sans-serif;
+  --mono:      'DM Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+  --ease:      cubic-bezier(0.16,1,0.3,1);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:300px; height:600px; overflow:hidden; background:var(--dark); }
+body { font-family:var(--font); -webkit-font-smoothing:antialiased; }
+a { text-decoration:none; color:inherit; }
+button { border:0; background:none; font:inherit; color:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+
+/* ── Canvas ─────────────────────────────────────────────────────────
+   Fixed 300x600 stage. A crossfading slide stack sits at the bottom of
+   the z-order; persistent chrome (logo, nav, CTA) is pinned on top of it
+   and never rotates. */
+#banner {
+  position:relative;
+  width:300px;
+  height:600px;
+  overflow:hidden;
+  cursor:pointer;
+  background:var(--dark);
+}
+
+/* ── Slide stack ────────────────────────────────────────────────── */
+#slides { position:absolute; inset:0; z-index:1; }
+
+.slide {
+  position:absolute;
+  inset:0;
+  opacity:0;
+  z-index:1;
+  pointer-events:none;
+  transition:opacity 0.9s ease;
+}
+.slide.active { opacity:1; z-index:2; pointer-events:auto; }
+
+.slide-bg {
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  z-index:1;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+.slide-scrim-top, .slide-scrim-bottom {
+  position:absolute;
+  left:0; right:0;
+  z-index:2;
+  pointer-events:none;
+}
+.slide-scrim-top {
+  top:0; height:64px;   /* eased: the art starts right under the header */
+  background:linear-gradient(180deg, color-mix(in srgb, var(--dark-2) 92%, transparent) 0%, color-mix(in srgb, var(--dark-2) 0%, transparent) 100%);
+}
+.slide-scrim-bottom {
+  bottom:0; height:340px;
+  background:linear-gradient(0deg, var(--dark) 0%, color-mix(in srgb, var(--dark) 94%, transparent) 46%, color-mix(in srgb, var(--dark) 0%, transparent) 100%);
+}
+
+.slide-copy {
+  position:absolute;
+  inset:0;
+  z-index:3;
+  transform:translateY(12px);
+  transition:transform 0.9s var(--ease);
+}
+.slide.active .slide-copy { transform:translateY(0); }
+
+/* Floating mid-art stat chip (per slide) */
+.mid-chip {
+  position:absolute;
+  top:256px; left:18px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 13px 8px 11px;
+  background:color-mix(in srgb, var(--dark) 62%, transparent);
+  border-left:3px solid var(--accent);
+  border-radius:0 3px 3px 0;
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+}
+.chip-num {
+  font-family:var(--font);
+  font-weight:800;
+  font-size:19px;
+  color:var(--white);
+  white-space:nowrap;
+}
+.chip-num em { font-style:normal; color:var(--accent); }
+.chip-label {
+  font-family:var(--font);
+  font-size:8.2px;
+  line-height:1.3;
+  font-weight:500;
+  color:rgba(255,255,255,0.88);
+}
+
+/* Rotating headline block, pinned above the fixed bottom block */
+.copy-bottom {
+  position:absolute;
+  left:0; right:0;
+  top:304px;   /* top-anchored: the six-line disclosure makes the bottom block tall, and every headline must land at the same y */
+  padding:0 18px;
+}
+.kicker {
+  font-family:var(--mono);
+  font-weight:500;
+  font-size:8px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent-lt);
+  margin-bottom:6px;
+}
+.copy-bottom h1 {
+  font-family:var(--font-head);
+  font-weight:700;
+  font-size:19.5px;
+  line-height:1.14;
+  letter-spacing:-0.012em;
+  color:var(--white);
+}
+.copy-bottom h1 .n { font-family:var(--font); font-weight:700; letter-spacing:-0.02em; }
+.copy-bottom h1 em { font-style:normal; font-weight:800; color:var(--accent); }
+.copy-bottom p {
+  margin-top:8px;
+  font-size:10.4px;
+  line-height:1.42;
+  font-weight:500;
+  color:rgba(255,255,255,0.86);
+  max-width:266px;
+}
+
+/* ── Persistent chrome (never rotates) ─────────────────────────── */
+#top-bar {
+  position:absolute;
+  top:0; left:0; right:0;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:9px 18px 0;
+}
+/* the company's own lockup (white wordmark, cyan star and orbit), shipped at 2x */
+#logo { display:block; width:84px; height:39px; flex:none; }
+#eyebrow {
+  font-family:var(--mono);
+  font-weight:500;
+  font-size:7.8px;
+  line-height:1.55;
+  letter-spacing:0.1em;
+  text-align:right;
+  color:var(--accent-lt);
+}
+
+/* arrows ride the dots row, so the art zone above stays free */
+.nav-arrow {
+  position:absolute;
+  top:-7px;
+  width:24px; height:24px;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:color-mix(in srgb, var(--dark) 45%, transparent);
+  border:1px solid rgba(255,255,255,0.22);
+  border-radius:50%;
+  color:rgba(255,255,255,0.92);
+  transition:background .2s ease, transform .15s ease;
+}
+.nav-arrow svg { width:12px; height:12px; }
+.nav-arrow:active { transform:scale(0.9); background:color-mix(in srgb, var(--accent) 55%, transparent); }
+#arrow-prev { right:48px; }
+#arrow-next { right:18px; }
+
+#bottom-fixed {
+  position:absolute;
+  left:0; right:0; bottom:0;
+  z-index:5;
+  padding:0 18px 11px;
+}
+
+#dots {
+  display:flex;
+  gap:6px;
+  margin-bottom:9px;
+}
+.dot {
+  width:14px; height:3px;
+  border-radius:2px;
+  background:rgba(255,255,255,0.28);
+  transition:background .3s ease, width .3s ease;
+  padding:6px 0;
+  background-clip:content-box;
+  box-sizing:content-box;
+}
+.dot.active { background-color:var(--accent); width:20px; }  /* background-color, not the shorthand: the shorthand resets background-clip and paints the whole 15px hit area as a square */
+
+#cta {
+  margin-top:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  width:100%;
+  height:40px;
+  background:var(--accent);
+  border-radius:3px;
+  color:var(--cta-ink);
+  font-family:var(--font);
+  font-weight:800;
+  font-size:11px;
+  letter-spacing:0.07em;
+  text-transform:uppercase;
+  box-shadow:0 8px 20px color-mix(in srgb, var(--accent) 35%, transparent);
+  animation:cta-pulse 1.8s ease-in-out 2.6s 6;
+}
+#cta-arrow { width:13px; height:13px; }
+
+/* Required disclosure under the CTA: it names what is forward-looking and what is at risk.
+   Body face at near-full strength; the line count is measured in the browser after every edit. */
+#disclosure {
+  margin:8px -10px 0;
+  font-family:var(--font);
+  font-weight:600;
+  font-size:7.4px;
+  letter-spacing:0;
+  line-height:1.3;
+  text-align:center;
+  text-wrap:balance;
+  color:rgba(255,255,255,0.88);
+}
+@keyframes cta-pulse {
+  0%, 100% { box-shadow:0 8px 20px color-mix(in srgb, var(--accent) 35%, transparent); }
+  50%      { box-shadow:0 8px 26px color-mix(in srgb, var(--accent) 65%, transparent), 0 0 0 5px color-mix(in srgb, var(--accent) 12%, transparent); }
+}
+
+/* ── Entrance sequence (initial load only) ─────────────────────── */
+.reveal {
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease);
+}
+#banner.is-live .reveal { opacity:1; transform:none; }
+#top-bar[data-delay="0"] { transition-delay:.05s; }
+#bottom-fixed[data-delay="4"] { transition-delay:.55s; }
+
+#click-tag-wrapper { position:absolute; width:0; height:0; overflow:hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  #cta { animation:none; }
+  .m-orbit, .m-star, .m-halo { animation:none; }
+  .reveal { transition-duration:.01s; transition-delay:0s !important; }
+  .slide, .slide-copy { transition-duration:.2s; }
+}
+
+/* ── Motif / Dark ───────────────────────────────────────────────────
+   The IR concept page has no photography beyond the logo, so each slide's background is its own
+   hero schematic redrawn at banner scale (.tmp/motif.py): a T cell and a B cell joined by AbTCR
+   receptors (white Y), a co-stimulatory molecule (cyan line, diamond head), CD19 (round heads),
+   an eight-point star and the thin orbit; then nine patient dots and a to-scale cash bar. */
+.slide-bg.motif {
+  background-color:var(--dark-2);
+  background-image:
+    radial-gradient(70% 36% at 50% 30%, color-mix(in srgb, var(--accent) 17%, transparent), transparent 72%),
+    radial-gradient(46% 30% at 100% 22%, color-mix(in srgb, var(--accent-lt) 10%, transparent), transparent 70%),
+    linear-gradient(to bottom, var(--navy) 0, var(--dark-2) 100%);
+}
+.motif svg { position:absolute; left:0; top:0; width:300px; height:600px; overflow:hidden; translate:0 -8px; }   /* art ends at y 238, clear of the chip at 256 */
+.motif text { font-family:var(--mono); fill:var(--accent-lt); font-size:7.4px; letter-spacing:.04em; }
+
+.m-ring { fill:none; stroke:#e5f8fa; stroke-opacity:.07; stroke-width:1; }
+.m-plus { fill:none; stroke:var(--accent-lt); stroke-opacity:.45; stroke-width:1; }
+.m-orbit { fill:none; stroke:var(--accent); stroke-opacity:.5; stroke-width:1.1; stroke-dasharray:3 5; animation:orbit 14s linear infinite; }
+@keyframes orbit { to { stroke-dashoffset:-64; } }
+
+.m-mem { stroke-width:1.4; }
+.m-mem-t { stroke:var(--accent-lt); stroke-opacity:.8; }
+.m-mem-b { stroke:#e5f8fa; stroke-opacity:.55; }
+.m-nuc { fill:none; stroke:#e5f8fa; stroke-opacity:.3; stroke-width:1; stroke-dasharray:2.5 3; }
+
+.m-abtcr { fill:none; stroke:#ffffff; stroke-opacity:.9; stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round; }
+.m-cd3 { fill:var(--accent-lt); }
+.m-costim { fill:none; stroke:var(--accent); stroke-width:1.6; stroke-linecap:round; }
+.m-costim-h { fill:var(--accent); stroke:none; }
+.m-cd19 { fill:none; stroke:#e5f8fa; stroke-opacity:.6; stroke-width:1.2; stroke-linecap:round; }
+.m-cd19h { fill:var(--accent); stroke:var(--accent-lt); stroke-width:.8; }
+.m-halo { fill:var(--accent); fill-opacity:.1; stroke:var(--accent); stroke-opacity:.45; stroke-width:.9; animation:halo 3.2s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+@keyframes halo { 0%,100% { transform:scale(1); opacity:1; } 50% { transform:scale(1.18); opacity:.55; } }
+.m-star { stroke:var(--accent-lt); fill:none; stroke-linecap:round; }
+
+.m-lead { fill:none; stroke:var(--accent-lt); stroke-opacity:.6; stroke-width:.8; }
+.m-lead.acc { stroke:var(--accent); }
+.motif text.acc { fill:var(--accent); }
+.motif text.key { fill:rgba(229,248,250,.82); }
+.motif text.m-val { font-family:var(--font); font-weight:800; font-size:11px; letter-spacing:0; fill:#ffffff; }
+
+/* patient dots, drawn to the 10-K: 3 at 2.5M cells/kg (no rate reported), 5 complete responders and 1 not evaluable at 5M */
+.p-lo { fill:none; stroke:#e5f8fa; stroke-opacity:.5; stroke-width:1.2; }
+.p-cr { fill:var(--accent); stroke:var(--accent-lt); stroke-width:1; }
+.p-tick { fill:none; stroke:var(--navy); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+.p-ne { fill:none; stroke:var(--accent-lt); stroke-width:1.3; stroke-dasharray:2.4 2.2; }
+.m-brk { fill:none; stroke:#e5f8fa; stroke-opacity:.45; stroke-width:1; }
+.m-brk.acc { stroke:var(--accent); stroke-opacity:.8; }
+
+/* cash and liabilities, to one scale (25 px per $M) */
+.m-tick { stroke:#e5f8fa; stroke-opacity:.16; stroke-width:1; stroke-dasharray:1 3; }
+.b-cash { fill:var(--accent); }
+.b-rel { fill:var(--accent-lt); }
+.b-oth { fill:#e5f8fa; fill-opacity:.4; }
